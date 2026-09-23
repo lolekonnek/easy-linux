@@ -1,5 +1,4 @@
 # Easy Linux
-# Linux Package Manager Script
 
 A simple Bash script for managing packages and performing basic system maintenance on multiple Linux distributions.
 
