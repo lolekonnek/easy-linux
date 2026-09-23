@@ -55,10 +55,37 @@ Installs the Spotify Flatpak package and configures Flathub if needed.
 Feh, Nitrogen and Variety.
 
 ## Usage
+### 1. Open Terminal
 
-```bash
+On most Linux desktop environments, you can open the terminal using:
+```
+CTRL + ALT + T
+```
+You can also open it from your application menu by searching for Terminal.
+
+### 2. Download the project
+
+Clone the repository:
+```
+git clone https://github.com/YOUR_USERNAME/easy-linux.git
+```
+Enter the project directory:
+```
+cd easy-linux
+```
+### 3. Make the script executable
+
+Run:
+```
+chmod +x easy-linux.sh
+```
+### 4. Run the script
+
+Start the program with:
+```
 sudo ./easy-linux.sh
 ```
+The script will automatically detect your Linux distribution and display a menu with available options.
 
 ## Project Goal
 
