@@ -1,12 +1,26 @@
 #!/bin/bash
 
+# ============================================================
+# Linux Package Manager
+# Simple package management and system maintenance script
+# ============================================================
+
+# Check if the script is running with root privileges
 if [ "$EUID" -ne 0 ]; then
   echo "Please run as root"
   exit
 fi
 
+# Load information about the current Linux distribution
 source /etc/os-release
+
+# Display detected distribution
 echo "Detected Linux distribution: $ID"
+
+# ============================================================
+# MAIN MENU
+# ============================================================
+
 echo "What do you want to do?"
 echo "1) Install common packages"
 echo "2) Update system"
@@ -16,6 +30,11 @@ echo "5) Clean package cache"
 echo "6) Find files"
 echo "7) Exit"
 read -p "Enter your choice [1-7]: " choice
+
+
+# ============================================================
+# PACKAGE INSTALLATION MENU
+# ============================================================
 
 if [ "$choice" -eq 1 ]; then
    echo "What packages do you want to install?"
@@ -27,6 +46,10 @@ if [ "$choice" -eq 1 ]; then
     echo "6) Spotify"
     echo "7) Wallpaper tools (feh, nitrogen, etc.)"
     read -p "Enter your choice [1-7]: " packages
+    
+# ========================================================
+# DEVELOPMENT TOOLS
+# ========================================================
 
     if [ "$packages" -eq 1 ]; then
         if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
@@ -70,6 +93,11 @@ if [ "$choice" -eq 1 ]; then
         else
             echo "Unsupported distribution"
         fi
+
+# ========================================================
+# NETWORK TOOLS
+# ========================================================
+
     elif  [ "$packages" -eq 2 ]; then
         if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
             apt install -y \
@@ -112,6 +140,12 @@ if [ "$choice" -eq 1 ]; then
         else
             echo "Unsupported distribution"
         fi
+
+# ========================================================
+# MULTIMEDIA TOOLS
+# ========================================================
+
+        
     elif  [ "$packages" -eq 3 ]; then
         if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
             apt install -y \
@@ -146,6 +180,10 @@ if [ "$choice" -eq 1 ]; then
         else
             echo "Unsupported distribution"
         fi
+# ========================================================
+# OFFICE TOOLS
+# ========================================================
+        
     elif  [ "$packages" -eq 4 ]; then
         if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
             apt install -y \
@@ -168,6 +206,11 @@ if [ "$choice" -eq 1 ]; then
         else
             echo "Unsupported distribution"
         fi
+
+# ========================================================
+# GAME TOOLS
+# ========================================================
+        
     elif  [ "$packages" -eq 5 ]; then
         if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
             apt install -y \
@@ -194,6 +237,11 @@ if [ "$choice" -eq 1 ]; then
         else
             echo "Unsupported distribution"
         fi
+
+# ========================================================
+# SPOTIFY
+# ========================================================
+        
     elif  [ "$packages" -eq 6 ]; then
         if  command -v flatpak >/dev/null 2>&1; then
             flatpak install -y flathub com.spotify.Client
@@ -223,6 +271,11 @@ if [ "$choice" -eq 1 ]; then
             flatpak install -y flathub com.spotify.Client
         
         fi
+
+# ========================================================
+# WALLPAPER TOOLS
+# ========================================================
+    
     elif  [ "$packages" -eq 7 ]; then
         if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
             apt install -y \
@@ -246,6 +299,11 @@ if [ "$choice" -eq 1 ]; then
         echo "Invalid choice"
         exit 1   
     fi
+
+# ============================================================
+# SYSTEM UPDATE
+# ============================================================
+
 elif [ "$choice" -eq 2 ]; then
   if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
     apt update && sudo apt upgrade -y
@@ -256,6 +314,11 @@ elif [ "$choice" -eq 2 ]; then
   else
     echo "Unsupported distribution"
   fi
+
+# ============================================================
+# SYSTEM UPGRADE
+# ============================================================
+
 elif [ "$choice" -eq 3 ]; then
   if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
     apt full-upgrade -y
@@ -266,6 +329,12 @@ elif [ "$choice" -eq 3 ]; then
   else
     echo "Unsupported distribution"
   fi
+
+# ============================================================
+# REMOVE UNUSED PACKAGES
+# ============================================================
+
+
 elif [ "$choice" -eq 4 ]; then
   if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
     apt autoremove -y
@@ -282,6 +351,11 @@ elif [ "$choice" -eq 4 ]; then
 else
     echo "Unsupported distribution"
   fi
+
+# ============================================================
+# CLEAN PACKAGE CACHE
+# ============================================================
+  
 elif [ "$choice" -eq 5 ]; then
   if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
     apt clean
@@ -292,9 +366,20 @@ elif [ "$choice" -eq 5 ]; then
   else
     echo "Unsupported distribution"
   fi
+
+# ============================================================
+# FILE SEARCH
+# ============================================================
+
 elif [ "$choice" -eq 6 ]; then
   read -p "Enter the filename to search for: " filename
   find / -name "$filename" 2>/dev/null
+
+
+# ============================================================
+# EXIT
+# ============================================================
+  
 elif [ "$choice" -eq 7 ]; then
   echo "Exiting..."
   exit 0
